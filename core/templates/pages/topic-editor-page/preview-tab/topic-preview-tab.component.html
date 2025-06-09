@@ -3,8 +3,8 @@
     <background-banner></background-banner>
   </div>
   <div class="topic-preview-container">
-    <div class="topic-preview-nav">
-      <div class="topic-preview-navbar-tabs">
+    <div class="topic-preview-nav" style="margin-bottom: 0; padding-bottom: 0;">
+      <div class="topic-preview-navbar-tabs" style="margin-bottom: 0; padding-bottom: 0;">
         <div class="topic-preview-navbar-tab"
              [ngClass]="{'topic-preview-nav-active': activeTab === 'story'}"
              (click)="changePreviewTab('story')">
@@ -12,34 +12,13 @@
             <img alt="" class="tab-icon"
                  [src]="getStaticImageUrl('/icons/play_icon_24px.svg')">
           </div>
-          <div class="topic-preview-text">
+          <div class="topic-preview-text" style="margin-bottom: 0; padding-bottom: 0;">
             Learn
-          </div>
-        </div>
-        <div class="topic-preview-navbar-tab"
-             [ngClass]="{'topic-preview-nav-active': activeTab === 'practice'}"
-             (click)="changePreviewTab('practice')">
-          <div class="topic-preview-icon">
-            <img alt="" class="tab-icon" [src]="getStaticImageUrl('/icons/train_icon_24px.svg')">
-          </div>
-          <div class="topic-preview-text">
-            Practice
-          </div>
-        </div>
-        <div class="topic-preview-navbar-tab"
-             [ngClass]="{'topic-preview-nav-active': activeTab === 'subtopic'}"
-             (click)="changePreviewTab('subtopic')">
-          <div class="topic-preview-icon">
-            <img alt="" class="tab-icon"
-                 [src]="getStaticImageUrl('/icons/review_icon_24px.svg')">
-          </div>
-          <div class="topic-preview-text">
-            Study
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="activeTab === 'story'">
+    <div *ngIf="activeTab === 'story'" style="margin-top: 0; padding-top: 0;">
       <stories-list
                     [topicName]="topic.getName()"
                     [topicId]="topic.getId()"
@@ -68,15 +47,19 @@
   </div>
 </div>
 <style>
+  .topic-preview-parent {
+    margin-top: -40px;
+  }
   .topic-preview-container {
-    background-color: #fff;
+    background-color: #c33c3c;
     margin: 0 auto;
     position: relative;
     top: 50px;
     width: 50%;
   }
-  .topic-preview-parent {
-    margin-top: -40px;
+
+  .topic-preview-container stories-list {
+    background: rgba(0, 255, 0, 0.3); /* semi-transparent green */
   }
   .topic-preview-nav {
     background-color: #00645c;
@@ -135,4 +118,116 @@
       width: 100%;
     }
   }
+  /*
+  NOTE to developers: We generate RTL CSS from this file in the webpack
+  compilation, here are sme additional rules that can be added to the CSS files:
+  https://rtlcss.com/learn/usage-guide/control-directives .
+*/
+  :host ::ng-deep stories-list .tab-title {
+    color: #017a70;
+    font-weight: lighter;
+    margin: .83em 0 0.3em 0;
+  }
+
+  :host ::ng-deep stories-list .story-info-container {
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  :host ::ng-deep stories-list .stories-can-play {
+    display: inline-block;
+    font-size: 1.4em;
+    font-weight: 500;
+    margin-top: 0.5em;
+    padding-bottom: 15px;
+  }
+
+  :host ::ng-deep stories-list .topic-description {
+    border-bottom: 1px solid #7b7b7b;
+    font-size: 1.1em;
+    padding-bottom: 2vh;
+  }
+
+  :host ::ng-deep stories-list .oppia-stories-list-container .oppia-page-card {
+    border-radius: 0;
+    padding-bottom: 7.5vh;
+    width: 704px;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  :host ::ng-deep stories-list .mat-card-margin-desktop {
+    margin-top: 0;
+  }
+
+  :host ::ng-deep stories-list .oppia-topic-viewer-breadcrumbs .desktop-breadcrumbs {
+    align-items: center;
+    display: flex;
+    gap: 4px;
+  }
+
+  :host ::ng-deep stories-list .oppia-topic-viewer-breadcrumbs .desktop-breadcrumbs .classroom-name-container {
+    align-items: center;
+    display: flex;
+    gap: 4px;
+  }
+
+  :host ::ng-deep stories-list .oppia-topic-viewer-breadcrumbs .mobile-breadcrumbs {
+    display: none;
+  }
+  
+  :host ::ng-deep stories-list .oppia-topic-viewer-breadcrumbs .mobile-breadcrumbs a,
+  :host ::ng-deep stories-list .oppia-topic-viewer-breadcrumbs .desktop-breadcrumbs a,
+  :host ::ng-deep stories-list .oppia-topic-viewer-breadcrumbs .mobile-breadcrumbs span,
+  :host ::ng-deep stories-list .oppia-topic-viewer-breadcrumbs .desktop-breadcrumbs span {
+    color: #00645c;
+    font-family: 'Capriola', 'Roboto', Arial, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 15px;
+  }
+
+  :host ::ng-deep stories-list .oppia-topic-viewer-breadcrumbs .mobile-breadcrumbs i,
+  :host ::ng-deep stories-list .oppia-topic-viewer-breadcrumbs .desktop-breadcrumbs i {
+    font-size: 13px;
+  }
+
+  @media(max-width: 1024px) {
+    stories-list .oppia-stories-list-container .oppia-page-card {
+      width: 80vw;
+    }
+  }
+
+  @media(max-width: 768px) {
+    stories-list .oppia-stories-list-container .oppia-page-card {
+      width: 100%;
+    }
+
+    stories-list .story-info-container {
+      padding-top: 0;
+    }
+
+    stories-list .oppia-topic-viewer-breadcrumbs .desktop-breadcrumbs {
+      display: none;
+    }
+    
+    stories-list .oppia-topic-viewer-breadcrumbs .mobile-breadcrumbs {
+      align-items: center;
+      display: flex;
+      gap: 4px;
+    }
+  }
+
+  @media(max-width: 500px) {
+    stories-list .oppia-stories-list-container .oppia-page-card {
+      padding: 0 24px 64px 24px;
+      width: 100%;
+    }
+
+    stories-list .story-info-container {
+      padding-top: 0;
+    }
+  }
+
 </style>
